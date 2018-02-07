@@ -45,6 +45,11 @@ public class CacheConfiguration {
             cm.createCache(com.codeartisans.bugtracker.domain.PersistentToken.class.getName(), jcacheConfiguration);
             cm.createCache(com.codeartisans.bugtracker.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
             cm.createCache(com.codeartisans.bugtracker.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
+            cm.createCache(com.codeartisans.bugtracker.domain.Project.class.getName(), jcacheConfiguration);
+            cm.createCache(com.codeartisans.bugtracker.domain.Label.class.getName(), jcacheConfiguration);
+            cm.createCache(com.codeartisans.bugtracker.domain.Label.class.getName() + ".tickets", jcacheConfiguration);
+            cm.createCache(com.codeartisans.bugtracker.domain.Ticket.class.getName(), jcacheConfiguration);
+            cm.createCache(com.codeartisans.bugtracker.domain.Ticket.class.getName() + ".labels", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
