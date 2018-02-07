@@ -4,7 +4,7 @@
       "packageName": "com.codeartisans.bugtracker",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "4.14.0",
+    "jhipsterVersion": "4.14.1",
     "baseName": "BugTracker",
     "packageName": "com.codeartisans.bugtracker",
     "packageFolder": "com/codeartisans/bugtracker",
