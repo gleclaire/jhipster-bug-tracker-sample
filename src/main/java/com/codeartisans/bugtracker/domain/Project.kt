@@ -14,16 +14,18 @@ import java.util.Objects
 @Entity
 @Table(name = "project")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-class Project : Serializable {
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+data class Project (
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    var id: Long? = null
+    var id: Long? = null,
 
     @Column(name = "name")
     var name: String? = null
+
+) {
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
     fun name(name: String): Project {
         this.name = name

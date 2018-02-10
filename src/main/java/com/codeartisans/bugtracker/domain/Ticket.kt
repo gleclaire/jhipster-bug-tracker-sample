@@ -2,6 +2,8 @@ package com.codeartisans.bugtracker.domain
 
 import org.hibernate.annotations.Cache
 import org.hibernate.annotations.CacheConcurrencyStrategy
+import org.hibernate.annotations.Cascade
+import org.hibernate.annotations.CascadeType
 
 import javax.persistence.*
 import javax.validation.constraints.*
@@ -17,37 +19,41 @@ import java.util.Objects
 @Entity
 @Table(name = "ticket")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-class Ticket : Serializable {
+data class Ticket(
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    var id: Long? = null
+    var id: Long? = null,
 
     @NotNull
     @Column(name = "title", nullable = false)
-    var title: String? = null
+    var title: String? = null,
 
     @Column(name = "description")
-    var description: String? = null
+    var description: String? = null,
 
     @Column(name = "due_date")
-    var dueDate: LocalDate? = null
+    var dueDate: LocalDate? = null,
 
     @Column(name = "done")
-    var isDone: Boolean? = null
+    var isDone: Boolean? = null,
 
     @ManyToOne
-    var project: Project? = null
+    var project: Project? = null,
 
     @ManyToOne
-    var assignedTo: User? = null
+    var assignedTo: User? = null,
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "ticket_label", joinColumns = arrayOf(JoinColumn(name = "tickets_id", referencedColumnName = "id")), inverseJoinColumns = arrayOf(JoinColumn(name = "labels_id", referencedColumnName = "id")))
+    @Cascade(CascadeType.ALL)
     private var labels: MutableSet<Label> = HashSet()
+
+) {
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
     fun title(title: String): Ticket {
         this.title = title
@@ -88,20 +94,20 @@ class Ticket : Serializable {
         return this
     }
 
-/*
-    fun addLabel(label: Label): Ticket {
-        this.labels.add(label)
-        label.getTickets().add(this)
-        return this
-    }
+    /*
+        fun addLabel(label: Label): Ticket {
+            this.labels.add(label)
+            label.getTickets().add(this)
+            return this
+        }
 
-    fun removeLabel(label: Label): Ticket {
-        this.labels.remove(label)
-        label.getTickets().remove(this)
-        return this
-    }
+        fun removeLabel(label: Label): Ticket {
+            this.labels.remove(label)
+            label.getTickets().remove(this)
+            return this
+        }
 
-*/
+    */
     fun setLabels(labels: MutableSet<Label>) {
         this.labels = labels
     }
@@ -126,12 +132,12 @@ class Ticket : Serializable {
 
     override fun toString(): String {
         return "Ticket{" +
-                "id=" + id +
-                ", title='" + title + "'" +
-                ", description='" + description + "'" +
-                ", dueDate='" + dueDate + "'" +
-                ", done='" + isDone + "'" +
-                "}"
+            "id=" + id +
+            ", title='" + title + "'" +
+            ", description='" + description + "'" +
+            ", dueDate='" + dueDate + "'" +
+            ", done='" + isDone + "'" +
+            "}"
     }
 
     companion object {

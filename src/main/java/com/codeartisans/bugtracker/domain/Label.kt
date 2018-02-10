@@ -3,6 +3,8 @@ package com.codeartisans.bugtracker.domain
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.Cache
 import org.hibernate.annotations.CacheConcurrencyStrategy
+import org.hibernate.annotations.Cascade
+import org.hibernate.annotations.CascadeType
 
 import javax.persistence.*
 import javax.validation.constraints.*
@@ -17,23 +19,26 @@ import java.util.Objects
 @Entity
 @Table(name = "label")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-class Label : Serializable {
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+data class Label (
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    var id: Long? = null
+    var id: Long? = null,
 
     @NotNull
     @Size(min = 3)
     @Column(name = "jhi_label", nullable = false)
-    var label: String? = null
+    var label: String? = null,
 
     @ManyToMany(mappedBy = "labels")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cascade(CascadeType.ALL)
     private var tickets: MutableSet<Ticket> = mutableSetOf()
+
+) {
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
 
     fun label(label: String): Label {
         this.label = label
@@ -52,20 +57,20 @@ class Label : Serializable {
 /*
     fun addTicket(ticket: Ticket): Label {
         this.tickets.add(ticket)
-        ticket.labels.add(this)
+        ticket.getLabels().add(this)
         return this
     }
 
     fun removeTicket(ticket: Ticket): Label {
         this.tickets.remove(ticket)
-        ticket.labels.remove(this)
+        ticket.getLabels().remove(this)
         return this
     }
+*/
 
     fun setTickets(tickets: MutableSet<Ticket>) {
         this.tickets = tickets
     }
-*/
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     override fun equals(o: Any?): Boolean {
@@ -87,9 +92,9 @@ class Label : Serializable {
 
     override fun toString(): String {
         return "Label{" +
-                "id=" + id +
-                ", label='" + label + "'" +
-                "}"
+            "id=" + id +
+            ", label='" + label + "'" +
+            "}"
     }
 
     companion object {
