@@ -3,14 +3,10 @@ package com.codeartisans.bugtracker.domain
 import com.fasterxml.jackson.annotation.JsonIgnore
 import org.hibernate.annotations.Cache
 import org.hibernate.annotations.CacheConcurrencyStrategy
-import org.hibernate.annotations.Cascade
-import org.hibernate.annotations.CascadeType
 
 import javax.persistence.*
 import javax.validation.constraints.*
 
-import java.io.Serializable
-import java.util.HashSet
 import java.util.Objects
 
 /**
@@ -28,12 +24,12 @@ data class Label (
     @NotNull
     @Size(min = 3)
     @Column(name = "jhi_label", nullable = false)
-    var label: String? = null,
+    @get:Size(min=5) // added annotation use-site target here
+    var label: String = "",
 
     @ManyToMany(mappedBy = "labels")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @Cascade(CascadeType.ALL)
     private var tickets: MutableSet<Ticket> = mutableSetOf()
 
 ) {

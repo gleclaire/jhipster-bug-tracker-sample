@@ -130,7 +130,7 @@ public class LabelResourceIntTest {
     public void checkLabelIsRequired() throws Exception {
         int databaseSizeBeforeTest = labelRepository.findAll().size();
         // set the field null
-        label.setLabel(null);
+        label.setLabel("");
 
         // Create the Label, which fails.
 

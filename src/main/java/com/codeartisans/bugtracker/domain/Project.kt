@@ -33,23 +33,6 @@ data class Project (
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) {
-            return true
-        }
-        if (o == null || javaClass != o.javaClass) {
-            return false
-        }
-        val project = o as Project?
-        return if (project!!.id == null || id == null) {
-            false
-        } else id == project.id
-    }
-
-    override fun hashCode(): Int {
-        return Objects.hashCode(id)
-    }
-
     override fun toString(): String {
         return "Project{" +
                 "id=" + id +

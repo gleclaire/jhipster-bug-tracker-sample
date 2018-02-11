@@ -28,7 +28,8 @@ data class Ticket(
 
     @NotNull
     @Column(name = "title", nullable = false)
-    var title: String? = null,
+    @get:Size(min=5) // added annotation use-site target here
+    var title: String = "",
 
     @Column(name = "description")
     var description: String? = null,
@@ -94,41 +95,10 @@ data class Ticket(
         return this
     }
 
-    /*
-        fun addLabel(label: Label): Ticket {
-            this.labels.add(label)
-            label.getTickets().add(this)
-            return this
-        }
-
-        fun removeLabel(label: Label): Ticket {
-            this.labels.remove(label)
-            label.getTickets().remove(this)
-            return this
-        }
-
-    */
     fun setLabels(labels: MutableSet<Label>) {
         this.labels = labels
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-
-    override fun equals(o: Any?): Boolean {
-        if (this === o) {
-            return true
-        }
-        if (o == null || javaClass != o.javaClass) {
-            return false
-        }
-        val ticket = o as Ticket?
-        return if (ticket!!.id == null || id == null) {
-            false
-        } else id == ticket.id
-    }
-
-    override fun hashCode(): Int {
-        return Objects.hashCode(id)
-    }
 
     override fun toString(): String {
         return "Ticket{" +
