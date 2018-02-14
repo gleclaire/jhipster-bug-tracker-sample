@@ -49,7 +49,7 @@ data class Ticket(
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "ticket_label", joinColumns = arrayOf(JoinColumn(name = "tickets_id", referencedColumnName = "id")), inverseJoinColumns = arrayOf(JoinColumn(name = "labels_id", referencedColumnName = "id")))
-    @Cascade(CascadeType.ALL)
+//    @Cascade(CascadeType.ALL)
     private var labels: MutableSet<Label> = HashSet()
 
 ) {
